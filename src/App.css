@@ -19,21 +19,21 @@
       padding: 1em;
       margin-top: 2em;
       border-radius: 20%;
-      font-family: Lato;
+      font-family: Montserrat;
       border-width: thin;
       border-color: black;
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 
     .totalpaquetedetabaco{
-        background: linear-gradient(45deg, #0a889c, #0e6474);
+      background: linear-gradient(45deg, #0a889c, #0e6474);
       min-width: 12em;
       margin: auto;
       padding: .5em;
       margin-top: 1em;
       margin-bottom: 0.5em;
       color: white;
-      border-radius: 20%;
+      border-radius: 2em;
       width: 150px;
       height: 40px;
       padding: 0.5em;
@@ -41,6 +41,15 @@
       vertical-align: auto;
       
     }
+
+    button {
+    appearance: auto;
+    width: 150px;
+    height: 40px;
+    background-color: #0a889c;
+    color: white;
+    border-radius: 2em;
+}
 
     .form-control   {
         width: 300px;
@@ -57,7 +66,7 @@
     }
 
     .form-group-2{
-          width: 300px;
+        width: 300px;
         height: 50px;
         margin: auto;    
         display: flex;
@@ -74,8 +83,10 @@
     .h3{
       font-weight: 400;
     }
-    .h1 {
-          padding: 1em;
+    h1 {
+          padding-right: .5em;
+          padding-left: .5em;
+          margin-top: -1em;
 
     }
     

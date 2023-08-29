@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import './App.css';
+import './App.css'
 
 function App() {
   const [brands, setBrands] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState('');
   const [qty, setQty] = useState(0);
   const [isWholePack, setIsWholePack] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:3001/marcas')
-      .then(response => response.json())
-      .then(data => setBrands(data));
+    // Carga las marcas desde el backend al montar el componente
+    axios.get('/brands')
+      .then(response => {
+        setBrands(response.data);
+      })
+      .catch(error => {
+        console.error("Error al cargar las marcas:", error);
+      });
   }, []);
 
   function getBrandCigarCount() {
@@ -76,11 +81,12 @@ function App() {
           onChange={(event) => { setSelectedBrand(event.target.value); }}>
           <option value="">Seleccionar...</option>
           {brands.map(brand => (
-            <option key={brand.id} value={brand.nombre}>{brand.nombre}</option>
+            <option key={brand.name} value={brand.name}>{brand.name}</option>
           ))}
         </select>
       </div>
-      <div className="checkbox">
+
+<div className="checkbox">
         <input
           type="checkbox"
           id="paqueteentero"
@@ -90,18 +96,23 @@ function App() {
         />
         <label htmlFor="paqueteentero"> Paquete entero</label>
       </div>
+
       <div className="form-group">
-        <div className="alert alert-danger" role="alert">
-          <h3><b>Cantidad de cigarros:</b> {calculation()}<br />
-            <b>Marca y paquete: </b>{tobaccoPacketDetail()}<br /></h3>
-        </div>
-        <div className="alert alert-success" role="alert">
-          <label>El paciente tiene: </label>
-          <h3 className="totalpaquetedetabaco">{tobaccoPacketDetail()}</h3>
-        </div>
-        <button className="btn btn-primary" onClick={handleSubmit}>Enviar</button>
+       
+
+      <div className="alert alert-danger" role="alert">
+        <h3><b>Cantidad de cigarros:</b> {calculation()}<br />
+          <b>Marca y paquete: </b>  {selects} <br /></h3>
       </div>
+
+      <div className="alert alert-success" role="alert">
+        <label>El paciente tiene: </label>
+        <h3 className="totalpaquetedetabaco">{paquetedetabaco()}</h3>
+      </div>
+
+      <button className="btn btn-primary" onClick={handleSubmit}>Enviar</button>
     </div>
+    
   );
 };
 
