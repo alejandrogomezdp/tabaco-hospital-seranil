@@ -15,7 +15,10 @@ function App() {
   }, []);
 
   function getBrandCigarCount() {
-    const brand = brands.find(b => b.name === selectedBrand);
+    // Encuentra la marca seleccionada en el array de marcas.
+    const brand = brands.find(brand => brand.nombre === selectedBrand);
+
+    // Si encontramos la marca, retornamos el valor de cigarCount, si no, retornamos 0.
     return brand ? brand.cigarCount : 0;
   }
 
@@ -24,6 +27,8 @@ function App() {
     if (isNaN(quantity) || quantity < 0) {
       quantity = 0;
     }
+
+    // Si isWholePack es true, sumamos el cigarCount de la marca seleccionada al total.
     return isWholePack ? quantity + getBrandCigarCount() : quantity;
   }
 
@@ -92,8 +97,7 @@ function App() {
       </div>
       <div className="form-group">
         <div className="alert alert-danger" role="alert">
-          <h3><b>Cantidad de cigarros:</b> {calculation()}<br />
-            <b>Marca y paquete: </b>{tobaccoPacketDetail()}<br /></h3>
+
         </div>
         <div className="alert alert-success" role="alert">
           <label>El paciente tiene: </label>
