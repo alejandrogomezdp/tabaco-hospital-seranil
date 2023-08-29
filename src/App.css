@@ -25,13 +25,13 @@
       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 
-    .totalpaquetedetabaco{
+    .resultado{
       background: linear-gradient(45deg, #0a889c, #0e6474);
-      min-width: 12em;
+      min-width: 20em;
       margin: auto;
       padding: .5em;
       margin-top: 1em;
-      margin-bottom: 0.5em;
+      margin-bottom: 1em;
       color: white;
       border-radius: 2em;
       width: 150px;
@@ -43,12 +43,13 @@
     }
 
     button {
-    appearance: auto;
-    width: 150px;
-    height: 40px;
-    background-color: #0a889c;
+    width: 200px;
+    height: 50px;
+    background-color: #00b52e;
     color: white;
     border-radius: 2em;
+    margin-bottom: 1em;
+    font-size: 1em;
 }
 
     .form-control   {
@@ -65,6 +66,12 @@
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
     }
 
+    .css-b62m3t-container {
+    position: relative;
+    box-sizing: border-box;
+    max-width: 80%;
+    margin: auto;
+}
     .form-group-2{
         width: 300px;
         height: 50px;
