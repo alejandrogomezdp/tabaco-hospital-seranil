@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Select from 'react-select';
 import './App.css';
 
 function App() {
@@ -7,40 +8,31 @@ function App() {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [qty, setQty] = useState(0);
   const [isWholePack, setIsWholePack] = useState(false);
+  const [patients, setPatients] = useState([]);
+  const [patientName, setPatientName] = useState("");
 
   useEffect(() => {
     fetch('http://localhost:3001/marcas')
       .then(response => response.json())
       .then(data => setBrands(data));
+
+    fetch('http://localhost:3001/pacientes')
+      .then(response => response.json())
+      .then(data => setPatients(data.map(patient => patient.nombre_completo)));
   }, []);
-
-  function getBrandCigarCount() {
-    // Encuentra la marca seleccionada en el array de marcas.
-    const brand = brands.find(brand => brand.nombre === selectedBrand);
-
-    // Si encontramos la marca, retornamos el valor de cigarCount, si no, retornamos 0.
-    return brand ? brand.cigarCount : 0;
-  }
-
-  function calculation() {
-    let quantity = parseInt(qty, 10);
-    if (isNaN(quantity) || quantity < 0) {
-      quantity = 0;
-    }
-
-    // Si isWholePack es true, sumamos el cigarCount de la marca seleccionada al total.
-    return isWholePack ? quantity + getBrandCigarCount() : quantity;
-  }
 
   function handleSubmit() {
     const data = {
-      brand: selectedBrand,
-      quantity: calculation()
+      nombre_completo: patientName,
+      numero_cigarros: calculation(),
+      paquete: selectedBrand,
+      fecha: new Date().toISOString().split('T')[0],
+      hora: new Date().toISOString().split('T')[1].split('.')[0]
     };
 
-    axios.post('/submit', data)
+    axios.post('http://localhost:3001/submit', data)
       .then(response => {
-        alert(`Datos enviados con éxito: ${data.quantity} de ${data.brand}`);
+        alert(`Datos enviados con éxito: ${data.nombre_completo} ha fumado ${data.numero_cigarros} cigarrillos.`);
       })
       .catch(error => {
         alert("Error al enviar los datos.");
@@ -48,65 +40,81 @@ function App() {
       });
   }
 
+  function calculation() {
+    let totalCigarros = parseInt(qty, 10);
+    if (isNaN(totalCigarros) || totalCigarros < 0) {
+      totalCigarros = 0;
+    }
+    if (isWholePack) {
+      totalCigarros += getBrandCigarCount();
+    }
+    return totalCigarros;
+  }
+
+  function getBrandCigarCount() {
+    const brand = brands.find(brand => brand.nombre === selectedBrand);
+    return brand ? brand.cigarCount : 0;
+  }
+
   function tobaccoPacketDetail() {
     const totalCigarros = calculation();
     return `${totalCigarros} Cigarros de ${selectedBrand}`;
   }
 
+  const patientOptions = patients.map(patient => ({ label: patient, value: patient }));
+
   return (
     <div className="container">
       <div className="alert alert-primary" role="alert">
         <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo" width="300px" height="130px"></img>
-        <h1>Inventorio de tabaco</h1>
+        <h1>Inventario de tabaco</h1>
       </div>
+      <Select
+        options={patientOptions}
+        value={{ label: patientName, value: patientName }}
+        onChange={(selectedOption) => setPatientName(selectedOption ? selectedOption.value : '')}
+        placeholder="Paciente..."
+      />
       <div className="form-group-2">
         <h3>Cantidad de cigarros:</h3>
         <input
           type="number"
           className="form"
           placeholder="Introduzca la cantidad"
+          value={qty}
+          onChange={(event) => setQty(event.target.value)}
+        />
+      </div>
+      <div className="form-group-3">
+        <h3>Marcar si es un paquete completo:</h3>
+        <input
+          type="checkbox"
+          checked={isWholePack}
           onChange={(event) => {
-            const value = parseInt(event.target.value, 10);
-            if (!isNaN(value) && value >= 0) {
-              setQty(value);
-            }
+            setIsWholePack(event.target.checked);
           }}
         />
       </div>
-      <div>
-        <h3>Paquete de tabaco:</h3>
+      <div className="form-group">
+        <h3>Marca de cigarro:</h3>
         <select
           className="form-control"
           value={selectedBrand}
-          onChange={(event) => { setSelectedBrand(event.target.value); }}>
-          <option value="">Seleccionar...</option>
+          onChange={(event) => setSelectedBrand(event.target.value)}
+        >
+          <option value="" disabled>Seleccione una marca</option>
           {brands.map(brand => (
-            <option key={brand.id} value={brand.nombre}>{brand.nombre}</option>
+            <option key={brand.id} value={brand.nombre}>
+              {brand.nombre}
+            </option>
           ))}
         </select>
       </div>
-      <div className="checkbox">
-        <input
-          type="checkbox"
-          id="paqueteentero"
-          name="paqueteentero"
-          checked={isWholePack}
-          onChange={() => setIsWholePack(!isWholePack)}
-        />
-        <label htmlFor="paqueteentero"> Paquete entero</label>
-      </div>
-      <div className="form-group">
-        <div className="alert alert-danger" role="alert">
-
-        </div>
-        <div className="alert alert-success" role="alert">
-          <label>El paciente tiene: </label>
-          <h3 className="totalpaquetedetabaco">{tobaccoPacketDetail()}</h3>
-        </div>
-        <button className="btn btn-primary" onClick={handleSubmit}>Enviar</button>
-      </div>
+      <h3>Resultado:</h3>
+      <div className="resultado">{tobaccoPacketDetail()}</div>
+      <button className="btn btn-primary" onClick={handleSubmit}>Enviar</button>
     </div>
   );
-};
+}
 
 export default App;
