@@ -17,7 +17,7 @@ const db = mysql.createConnection({
 });
 
 app.get('/marcas', (req, res) => {
-    db.query('SELECT * FROM marcas', (err, results) => {
+    db.query('SELECT * FROM Marcas', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -26,7 +26,7 @@ app.get('/marcas', (req, res) => {
 });
 
 app.get('/pacientes', (req, res) => {
-    db.query('SELECT nombre_completo FROM pacientes', (err, results) => {
+    db.query('SELECT nombre_completo FROM Pacientes', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -35,12 +35,12 @@ app.get('/pacientes', (req, res) => {
 });
 
 app.post('/submit', (req, res) => {
-    const { nombre_completo, numero_cigarros, paquete, fecha, hora } = req.body;
+    const { nombre_completo, numero_cigarros, paquete_completo, id_paciente, id_marca, fecha, hora } = req.body;
     const query = `
-        INSERT INTO pacientes (nombre_completo, numero_cigarros, paquete, fecha, hora)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO Transacciones (id_paciente, id_marca, cantidad_cigarros, paquete_completo, fecha, hora)
+        VALUES (?, ?, ?, ?, ?, ?)
     `;
-    db.query(query, [nombre_completo, numero_cigarros, paquete, fecha, hora], (err, results) => {
+    db.query(query, [id_paciente, id_marca, numero_cigarros, paquete_completo, fecha, hora], (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }

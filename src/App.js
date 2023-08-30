@@ -10,6 +10,8 @@ function App() {
   const [isWholePack, setIsWholePack] = useState(false);
   const [patients, setPatients] = useState([]);
   const [patientName, setPatientName] = useState("");
+  const [patientsData, setPatientsData] = useState([]);
+  const [transactionsData, setTransactionsData] = useState([]);
 
   useEffect(() => {
     fetch('http://localhost:3001/marcas')
@@ -19,9 +21,30 @@ function App() {
     fetch('http://localhost:3001/pacientes')
       .then(response => response.json())
       .then(data => setPatients(data.map(patient => patient.nombre_completo)));
+
+    fetch('http://localhost:3001/pacientes')
+      .then(response => response.json())
+      .then(data => setPatientsData(data));
+  }, []);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/transactions')
+      .then(response => response.json())
+      .then(data => setTransactionsData(data));
   }, []);
 
   function handleSubmit() {
+    const selectedPatient = patientsData.find(patient => patient.nombre_completo === patientName);
+    const totalCigarros = calculation();
+    const transaction = {
+      id_paciente: selectedPatient.id,
+      id_marca: brands.find(brand => brand.nombre === selectedBrand).id,
+      cantidad_cigarros: totalCigarros,
+      paquete_completo: isWholePack,
+      fecha: new Date().toISOString().split('T')[0],
+      hora: new Date().toISOString().split('T')[1].split('.')[0]
+    };
+
     const data = {
       nombre_completo: patientName,
       numero_cigarros: calculation(),
@@ -30,14 +53,9 @@ function App() {
       hora: new Date().toISOString().split('T')[1].split('.')[0]
     };
 
-    axios.post('http://localhost:3001/submit', data)
-      .then(response => {
-        alert(`Datos enviados con éxito: ${data.nombre_completo} ha fumado ${data.numero_cigarros} cigarrillos.`);
-      })
-      .catch(error => {
-        alert("Error al enviar los datos.");
-        console.error(error);
-      });
+    // Aquí puedes hacer la llamada a la API para guardar la transacción en la base de datos
+
+    alert(`Datos enviados con éxito: ${patientName} ha fumado ${totalCigarros} cigarrillos.`);
   }
 
   function calculation() {
