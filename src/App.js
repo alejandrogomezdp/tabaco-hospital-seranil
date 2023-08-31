@@ -11,33 +11,30 @@ function App() {
   const [patients, setPatients] = useState([]);
   const [patientName, setPatientName] = useState("");
   const [patientsData, setPatientsData] = useState([]);
-  const [transactionsData, setTransactionsData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/marcas')
-      .then(response => response.json())
-      .then(data => setBrands(data));
+    axios.get('http://localhost:3001/marcas')
+      .then(response => setBrands(response.data))
+      .catch(error => console.error("Hubo un error al obtener las marcas:", error));
 
-    fetch('http://localhost:3001/pacientes')
-      .then(response => response.json())
-      .then(data => setPatients(data.map(patient => patient.nombre_completo)));
-
-    fetch('http://localhost:3001/pacientes')
-      .then(response => response.json())
-      .then(data => setPatientsData(data));
-  }, []);
-
-  useEffect(() => {
-    fetch('http://localhost:3001/transactions')
-      .then(response => response.json())
-      .then(data => setTransactionsData(data));
+    axios.get('http://localhost:3001/pacientes')
+      .then(response => {
+        setPatients(response.data.map(patient => patient.nombre_completo));
+        setPatientsData(response.data);
+      })
+      .catch(error => console.error("Hubo un error al obtener los pacientes:", error));
   }, []);
 
   function handleSubmit() {
     const selectedPatient = patientsData.find(patient => patient.nombre_completo === patientName);
+
+    if (!selectedPatient) {
+      alert("Paciente no seleccionado o no encontrado");
+      return;
+    }
+
     const totalCigarros = calculation();
     const transaction = {
-      id_paciente: selectedPatient.id,
       id_marca: brands.find(brand => brand.nombre === selectedBrand).id,
       cantidad_cigarros: totalCigarros,
       paquete_completo: isWholePack,
@@ -45,17 +42,13 @@ function App() {
       hora: new Date().toISOString().split('T')[1].split('.')[0]
     };
 
-    const data = {
-      nombre_completo: patientName,
-      numero_cigarros: calculation(),
-      paquete: selectedBrand,
-      fecha: new Date().toISOString().split('T')[0],
-      hora: new Date().toISOString().split('T')[1].split('.')[0]
-    };
-
-    // Aquí puedes hacer la llamada a la API para guardar la transacción en la base de datos
-
-    alert(`Datos enviados con éxito: ${patientName} ha fumado ${totalCigarros} cigarrillos.`);
+    axios.post('http://localhost:3001/submit', transaction)
+      .then(response => {
+        alert(`Datos enviados con éxito: ${patientName} ha fumado ${totalCigarros} cigarrillos.`);
+      })
+      .catch(error => {
+        alert("Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.");
+      });
   }
 
   function calculation() {

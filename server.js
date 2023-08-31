@@ -1,39 +1,57 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const mysql = require('mysql2');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
+const port = 3001;
 
-// Middleware
-app.use(cors()); // para evitar problemas CORS en el desarrollo local
+app.use(cors());
 app.use(bodyParser.json());
 
-let stock = 0; // variable que representa el stock. En un caso real, deberías usar una base de datos.
 
-// Endpoint para obtener el stock actual
-app.get('/stock', (req, res) => {
-    res.json({ stock });
+
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'alejandro',
+    database: 'tabacoHospital'
 });
 
-// Endpoint para incrementar el stock
-app.post('/addStock', (req, res) => {
-    const { incrementValue } = req.body;
-    stock += incrementValue;
-    res.json({ stock });
+app.get('/marcas', (req, res) => {
+    db.query('SELECT * FROM Marcas', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
 });
 
-// Endpoint para reducir el stock
-app.post('/subtractStock', (req, res) => {
-    const { decrementValue } = req.body;
-    if (stock - decrementValue < 0) {
-        res.status(400).json({ error: 'Stock insuficiente' });
-        return;
-    }
-    stock -= decrementValue;
-    res.json({ stock });
+app.get('/pacientes', (req, res) => {
+    db.query('SELECT nombre_completo FROM Pacientes', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
 });
 
-const PORT = 5000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.post('/submit', (req, res) => {
+    console.log("Datos recibidos en el backend:", req.body);
+    const { cantidad_cigarros, paquete_completo, id_paciente, id_marca, fecha, hora } = req.body;
+    const query = `
+        INSERT INTO Transacciones (id_paciente, id_marca, cantidad_cigarros, paquete_completo, fecha, hora)
+        VALUES (?, ?, ?, ?, ?, ?)
+    `;
+    db.query(query, [id_paciente, id_marca, cantidad_cigarros, paquete_completo, fecha, hora], (err, results) => {
+        if (err) {
+            console.error("Error al insertar en la base de datos:", err); // Esto te dará más detalles sobre el error
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: "Datos guardados exitosamente!" });
+    });
+});
+
+app.listen(port, () => {
+    console.log(`API server started on http://localhost:${port}`);
 });
