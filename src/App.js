@@ -7,6 +7,8 @@ import {
 import Transacciones from "./components/Transacciones";
 import TransaccionNueva from "./components/TransaccionNueva";
 import TransaccionesAPI from "./components/TransaccionesAPI";  // <-- Don't forget to import this
+import IniciarSesion from "./components/IniciarSesion";  // <-- Don't forget to import this
+import Registro from "./components/Registro";  // <-- Don't forget to import this
 import './App.css';
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/transacciones" element={<Transacciones />} />
           <Route path="/transaccion-nueva" element={<TransaccionNueva />} />
           <Route path="/transacciones-api" element={<TransaccionesAPI />} />
+          <Route path="/iniciar-sesion" element={<IniciarSesion />} />
+          <Route path="/registro" element={<Registro />} />
         </Routes>
       </div>
     </Router>

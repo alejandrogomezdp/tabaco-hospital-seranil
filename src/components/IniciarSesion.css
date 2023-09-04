@@ -1,0 +1,27 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #0a889c, #0e6474);
+  color: #fff;
+}
+.form-signin {
+  width: 100%;
+  max-width: 340px;
+  padding: 15px;
+  margin: auto;
+}
+.alert-container {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+button {
+  margin-top: 1em;
+}
+h1 {
+  text-align: center;
+}

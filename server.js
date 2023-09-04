@@ -2,9 +2,11 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = 3001;
+const saltRounds = 10;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -12,7 +14,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'eminem92AA!!', // Recomendado mover a una variable de ambiente
+    password: process.env.DB_PASSWORD || 'eminem92AA!!',
     database: 'tabacoHospital'
 });
 
@@ -71,6 +73,35 @@ app.get('/transacciones-api', (req, res) => {
     });
 });
 
+app.post('/register', async (req, res) => {
+    const { username, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    db.query('INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Usuario registrado con éxito' });
+    });
+});
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    db.query('SELECT password_hash FROM users WHERE username = ? OR email = ?', [username, username], async (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (results.length === 0) {
+            return res.status(401).json({ error: 'Usuario no encontrado' });
+        }
+        const isPasswordCorrect = await bcrypt.compare(password, results[0].password_hash);
+        if (!isPasswordCorrect) {
+            return res.status(401).json({ error: 'Contraseña incorrecta' });
+        }
+        res.json({ message: 'Inicio de sesión exitoso' });
+    });
+});
 
 app.listen(port, () => {
     console.log(`API server started on http://localhost:${port}`);
