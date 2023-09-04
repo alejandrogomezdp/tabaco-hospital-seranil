@@ -90,6 +90,7 @@
 
     .h3{
       font-weight: 400;
+      font-size: 1.5em;
     }
     h1 {
           padding-right: .5em;
@@ -99,19 +100,27 @@
     }
     
 
-    .checkbox{
-      margin-top: 1em;
+    .checkbox {
+      margin-top: 0.5em;
       font-size: 1.3em;
+    }
+
+    .form-group-3{
+      margin-top: 1em;
     }
 
     @media (max-width: 576px) {
     .container {
-      width: 100%;
+      width: 85%;
       margin: auto;
       margin-top: 2em;
       padding: 1em;
-      border-radius: 40%;
+      border-radius: 30%;
       margin-bottom: 10em;
+    }
+
+    .h1 {
+      font-size: 1em;
     }
   }
 
@@ -169,6 +178,15 @@
   @media (min-width: 992px) {
     .container {
       width: 40%;
+      margin-bottom: 10em;
+      
+
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .container {
+      width: 30%;
       margin-bottom: 10em;
       
 

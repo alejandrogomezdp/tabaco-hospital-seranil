@@ -105,7 +105,7 @@ function App() {
       </div>
       <div className="form-group-3">
         <h3>Marcar si es un paquete completo:</h3>
-        <input
+        <input className="checkbox"
           type="checkbox"
           checked={isWholePack}
           onChange={(event) => setIsWholePack(event.target.checked)}
@@ -126,7 +126,7 @@ function App() {
         </select>
       </div>
 
-      <div>
+      <div className="resultadofinal">
         <h2>Resumen:</h2>
         <p>{tobaccoPacketDetail()}</p>
         <button onClick={handleSubmit}>Enviar datos</button>
