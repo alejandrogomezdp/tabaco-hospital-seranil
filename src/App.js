@@ -10,7 +10,6 @@ function App() {
   const [isWholePack, setIsWholePack] = useState(false);
   const [patients, setPatients] = useState([]);
   const [patientName, setPatientName] = useState("");
-  const [patientsData, setPatientsData] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:3001/marcas')
@@ -20,16 +19,22 @@ function App() {
     axios.get('http://localhost:3001/pacientes')
       .then(response => {
         setPatients(response.data.map(patient => patient.nombre_completo));
-        setPatientsData(response.data);
       })
       .catch(error => console.error("Hubo un error al obtener los pacientes:", error));
   }, []);
 
-  function handleSubmit() {
-    const selectedPatient = patientsData.find(patient => patient.nombre_completo === patientName);
+  const handlePatientChange = (selectedOption) => {
+    setPatientName(selectedOption ? selectedOption.value : '');
+  }
 
-    if (!selectedPatient) {
-      alert("Paciente no seleccionado o no encontrado");
+  function handleSubmit() {
+
+    console.log("selectedBrand:", selectedBrand);
+    console.log("patientName:", patientName);
+    console.log("qty:", qty);
+
+    if (!selectedBrand || !patientName || qty <= 0) {
+      alert("Por favor, rellena todos los campos correctamente.");
       return;
     }
 
@@ -37,9 +42,9 @@ function App() {
     const transaction = {
       id_marca: brands.find(brand => brand.nombre === selectedBrand).id,
       cantidad_cigarros: totalCigarros,
-      paquete_completo: isWholePack,
-      fecha: new Date().toISOString().split('T')[0],
-      hora: new Date().toISOString().split('T')[1].split('.')[0]
+      paquete_completo: isWholePack ? 1 : 0,
+      fecha_hora: new Date().toISOString().split('.')[0],
+      nombre_completo: patientName,
     };
 
     axios.post('http://localhost:3001/submit', transaction)
@@ -47,6 +52,7 @@ function App() {
         alert(`Datos enviados con éxito: ${patientName} ha fumado ${totalCigarros} cigarrillos.`);
       })
       .catch(error => {
+        console.error("Error detallado:", error.response.data);
         alert("Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.");
       });
   }
@@ -83,9 +89,10 @@ function App() {
       <Select
         options={patientOptions}
         value={{ label: patientName, value: patientName }}
-        onChange={(selectedOption) => setPatientName(selectedOption ? selectedOption.value : '')}
+        onChange={handlePatientChange}
         placeholder="Paciente..."
       />
+
       <div className="form-group-2">
         <h3>Cantidad de cigarros:</h3>
         <input
@@ -101,29 +108,29 @@ function App() {
         <input
           type="checkbox"
           checked={isWholePack}
-          onChange={(event) => {
-            setIsWholePack(event.target.checked);
-          }}
+          onChange={(event) => setIsWholePack(event.target.checked)}
         />
       </div>
       <div className="form-group">
         <h3>Marca de cigarro:</h3>
         <select
-          className="form-control"
           value={selectedBrand}
           onChange={(event) => setSelectedBrand(event.target.value)}
         >
-          <option value="" disabled>Seleccione una marca</option>
-          {brands.map(brand => (
+          <option value="">Seleccione una marca...</option>
+          {brands.map((brand) => (
             <option key={brand.id} value={brand.nombre}>
               {brand.nombre}
             </option>
           ))}
         </select>
       </div>
-      <h3>Resultado:</h3>
-      <div className="resultado">{tobaccoPacketDetail()}</div>
-      <button className="btn btn-primary" onClick={handleSubmit}>Enviar</button>
+
+      <div>
+        <h2>Resumen:</h2>
+        <p>{tobaccoPacketDetail()}</p>
+        <button onClick={handleSubmit}>Enviar datos</button>
+      </div>
     </div>
   );
 }
