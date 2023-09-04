@@ -129,7 +129,7 @@ function TransaccionNueva() {
             <div className="resultadofinal">
                 <h2>Resumen:</h2>
                 <p>{tobaccoPacketDetail()}</p>
-                <button onClick={handleSubmit}>Enviar datos</button>
+                <button className="boton-verde" onClick={handleSubmit}>Enviar datos</button>
             </div>
         </div>
     );

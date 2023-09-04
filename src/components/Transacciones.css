@@ -46,29 +46,76 @@ tr:nth-child(even) {
     background-color: #f5f5f5;
 }
 
-.ControlID-4 {
-    margin-top: 1em;
-    margin-bottom: 1em;
+button {
+    margin-bottom: 3em;
     margin-left: 1em;
     margin-right: 1em;
-    padding: 0.2em;
     border-radius: 5px;
     border: none;
     background-color: #f5f5f5;
     color: #000000;
     font-size: 1em;
     cursor: pointer;
+    margin-top: 3em;
 }
 
-.transacciones h2 {
+.transacciones h1 {
     color: white;
     font-size: 3em;
+    margin-top: .5em;
+}
 
-
+.container-transacciones {
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    color: #000000;
+    cursor: pointer;
+    height: 100px;
+    box-shadow: inset;
 }
 
 .filters {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin: auto;
     gap: 10px;
+    color: white;
+    margin-top: 1em;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-filter {
+    font-size: 1em;
+    margin-top: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    
+}
+
+.logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    gap: 10px;
+    color: white;
+    margin-top: 1em;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.input {
+    border-radius: 25em;
+}
+
+.transacciones {
+    margin-top: 2em;
 }
