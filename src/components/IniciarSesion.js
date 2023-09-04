@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import './IniciarSesion.css';
@@ -12,10 +11,15 @@ function Login() {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/login', { username, password });
-            console.log(response.data); // Aquí puedes manejar la respuesta (por ejemplo, guardar un token)
+
+            if (response.data.success) {
+                // Redirige al usuario a /transaccion-nueva usando React Router
+                window.location.href = "/transaccion-nueva"; // Cambia esta línea
+            }
+
             setError(null);
         } catch (err) {
-            setError(err.response.data.error);
+            setError(err.response.data);
         }
     };
 

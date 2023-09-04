@@ -45,7 +45,6 @@ app.get('/pacientes', (req, res) => {
 });
 
 app.post('/submit', (req, res) => {
-    console.log("Datos recibidos en el backend:", req.body);
     const { cantidad_cigarros, paquete_completo, id_marca, nombre_completo } = req.body;
     const currentDate = new Date();
     const fecha = currentDate.toISOString().split('T')[0];
@@ -57,7 +56,6 @@ app.post('/submit', (req, res) => {
     `;
     db.query(query, [id_marca, nombre_completo, cantidad_cigarros, paquete_completo, fecha, hora], (err, results) => {
         if (err) {
-            console.error("Error al insertar en la base de datos:", err);
             return res.status(500).json({ error: err.message });
         }
         res.json({ message: "Datos guardados exitosamente!" });
@@ -88,16 +86,13 @@ app.post('/register', async (req, res) => {
         pais
     } = req.body;
 
-    // Dividir el fullName en nombre y apellido
     const [nombre, ...rest] = fullName.split(' ');
-    const apellidoGenerado = rest.join(' ');  // Cambié el nombre de la constante para evitar conflictos
+    const apellidoGenerado = rest.join(' ');
 
-    // Validación básica
     if (!username || !email || !password || !fullName) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
 
-    // Validación del correo electrónico
     const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!re.test(email)) {
         return res.status(400).json({ error: 'Correo electrónico inválido' });
@@ -117,23 +112,33 @@ app.post('/register', async (req, res) => {
     );
 });
 
-
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    const query = "SELECT password FROM users WHERE username = ?";
+    // Añadimos logs para entender lo que recibimos
+    console.log(`Intento de inicio de sesión para el usuario: ${username}`);
+
+    const query = "SELECT password_hash FROM users WHERE username = ?"; // Cambiado a password_hash
     db.query(query, [username], async (err, results) => {
-        if (err || results.length === 0) {
+        if (err) {
+            console.error("Error al consultar la base de datos:", err);
+            return res.status(500).json({ error: "Error interno del servidor." });
+        }
+
+        if (results.length === 0) {
+            console.warn(`No se encontró el usuario: ${username}`);
             return res.status(400).send("Usuario o contraseña incorrectos");
         }
 
-        const hashedPassword = results[0].password;
+        const hashedPassword = results[0].password_hash; // Cambiado a password_hash
 
         const match = await bcrypt.compare(password, hashedPassword);
 
         if (match) {
-            res.redirect('/');
+            console.log(`Usuario ${username} ha iniciado sesión exitosamente.`);
+            res.redirect('/transaccion-nueva');
         } else {
+            console.warn(`Contraseña incorrecta para el usuario: ${username}`);
             res.status(400).send("Usuario o contraseña incorrectos");
         }
     });

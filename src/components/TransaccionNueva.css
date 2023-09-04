@@ -48,7 +48,7 @@
     background-color: #00b52e;
     color: white;
     border-radius: 2em;
-    margin-bottom: 1em;
+    margin-top: 1em;
     font-size: 1em;
 }
 
@@ -177,7 +177,7 @@
 
   @media (min-width: 992px) {
     .container {
-      width: 40%;
+      width: 80%;
       margin-bottom: 10em;
       
 
@@ -186,11 +186,12 @@
 
   @media (min-width: 1200px) {
     .container {
-      width: 30%;
-      margin-bottom: 10em;
+      width: 100%;
+      margin-bottom: 1em;
       
 
     }
+
   }
 
 

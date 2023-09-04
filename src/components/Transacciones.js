@@ -39,8 +39,8 @@ function Transacciones() {
 
     return (
         <>
-            <section className="container-transacciones">
-                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos" width="300px" height="130px" />
+            <section className="contenedor-transacciones">
+                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" width="300px" height="130px" />
             </section>
             <div className="transacciones">
                 <h1 style={{ textAlign: 'center' }}>Transacciones de tabaco</h1>

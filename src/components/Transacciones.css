@@ -4,6 +4,14 @@
     align-items: center;
 }
 
+body {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #0a889c, #0e6474);
+    color: #fff;
+}
+
 .filter-section {
     display: flex;
     align-items: center;
@@ -65,7 +73,7 @@ button {
     margin-top: .5em;
 }
 
-.container-transacciones {
+.contenedor-transacciones {
     margin: auto;
     align-items: center;
     justify-content: center;
@@ -86,7 +94,6 @@ button {
     gap: 10px;
     color: white;
     margin-top: 1em;
-    margin: auto;
     align-items: center;
     justify-content: center;
 }
@@ -99,7 +106,7 @@ button {
     
 }
 
-.logos {
+.logos2 {
     display: flex;
     justify-content: center;
     align-items: center;
