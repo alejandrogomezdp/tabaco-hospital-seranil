@@ -74,32 +74,68 @@ app.get('/transacciones-api', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
+    const {
+        username,
+        email,
+        password,
+        fullName,
+        birthdate,
+        address,
+        phone,
+        direccion,
+        codigo_postal,
+        ciudad,
+        pais
+    } = req.body;
+
+    // Dividir el fullName en nombre y apellido
+    const [nombre, ...rest] = fullName.split(' ');
+    const apellidoGenerado = rest.join(' ');  // Cambié el nombre de la constante para evitar conflictos
+
+    // Validación básica
+    if (!username || !email || !password || !fullName) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
+
+    // Validación del correo electrónico
+    const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!re.test(email)) {
+        return res.status(400).json({ error: 'Correo electrónico inválido' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    db.query('INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
+    db.query(
+        'INSERT INTO users (nombre, apellido, username, email, password_hash, birthdate, address, phone, direccion, codigo_postal, ciudad, pais) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [nombre, apellidoGenerado, username, email, hashedPassword, birthdate, address, phone, direccion, codigo_postal, ciudad, pais],
+        (err, results) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.json({ message: 'Usuario registrado con éxito' });
         }
-        res.json({ message: 'Usuario registrado con éxito' });
-    });
+    );
 });
 
-app.post('/login', async (req, res) => {
+
+app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    db.query('SELECT password_hash FROM users WHERE username = ? OR email = ?', [username, username], async (err, results) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
+    const query = "SELECT password FROM users WHERE username = ?";
+    db.query(query, [username], async (err, results) => {
+        if (err || results.length === 0) {
+            return res.status(400).send("Usuario o contraseña incorrectos");
         }
-        if (results.length === 0) {
-            return res.status(401).json({ error: 'Usuario no encontrado' });
+
+        const hashedPassword = results[0].password;
+
+        const match = await bcrypt.compare(password, hashedPassword);
+
+        if (match) {
+            res.redirect('/');
+        } else {
+            res.status(400).send("Usuario o contraseña incorrectos");
         }
-        const isPasswordCorrect = await bcrypt.compare(password, results[0].password_hash);
-        if (!isPasswordCorrect) {
-            return res.status(401).json({ error: 'Contraseña incorrecta' });
-        }
-        res.json({ message: 'Inicio de sesión exitoso' });
     });
 });
 

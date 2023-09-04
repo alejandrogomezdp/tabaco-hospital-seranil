@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Registro.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function Registro() {
     const [username, setUsername] = useState('');
@@ -12,6 +14,13 @@ function Registro() {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+
+    const isValidEmail = (email) => {
+        const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return re.test(email);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,10 +37,12 @@ function Registro() {
             const response = await axios.post('http://localhost:3001/register', newUser);
             console.log(response.data);
             setError(null);
+            navigate('/iniciar-sesion');
         } catch (err) {
             setError(err.response.data.error);
         }
     };
+
 
     return (
         <div className='form-register text-center'>
@@ -85,7 +96,7 @@ function Registro() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                 />
-                <button type="submit">Registrarse</button>
+                <button type="submit" className="btn btn-lg btn-primary btn-block">Registrarse</button>
             </form>
         </div>
     );

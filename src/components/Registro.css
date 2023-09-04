@@ -12,7 +12,7 @@ body {
     max-width: 500px;
     max-height: 600px;
     width: 90%;
-    margin-top: 2em;
+    margin-top: 1em;
     background-color: #fff;
     padding: 30px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -83,6 +83,7 @@ img {
 @media screen and (max-width: 768px) { /* Tablets */
     .form-register {
         padding: 30px 20px;
+        margin-top: .2em;
     }
 
     .form-register h2 {

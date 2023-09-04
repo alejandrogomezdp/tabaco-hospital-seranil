@@ -6,12 +6,18 @@ body {
   background: linear-gradient(45deg, #0a889c, #0e6474);
   color: #fff;
 }
+
 .form-signin {
   width: 100%;
   max-width: 340px;
   padding: 15px;
   margin: auto;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  color: #333;
 }
+
 .alert-container {
   margin-bottom: 1em;
   display: flex;
@@ -19,9 +25,75 @@ body {
   align-items: center;
   flex-direction: column;
 }
-button {
-  margin-top: 1em;
+
+.form-signin input {
+  width: 100%;
+  padding: 10px 1px 10px 1px;
+  margin-bottom: 20px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border 0.3s;
 }
+
+.form-signin input:focus {
+  border: 1px solid #007AFF;
+  outline: none;
+}
+
+.form-signin button {
+  width: 100%;
+  padding: 15px;
+  background-color: #007AFF;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: auto;
+}
+
+.form-signin button:hover {
+  background-color: #0056b3;
+}
+
 h1 {
   text-align: center;
+  color: #555;
+  font-weight: 300;
+  margin-top: auto;
+}
+
+/* Media queries para responsividad */
+@media screen and (max-width: 768px) { /* Tablets */
+  .form-signin {
+    padding: 30px 20px;
+    margin-top: .2em;
+  }
+
+  .form-signin h1 {
+    font-size: 24px;
+  }
+
+  .form-signin input,
+  .form-signin button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) { /* Móviles */
+  .form-signin {
+    box-shadow: none;
+    border: 1px solid #e1e1e1;
+  }
+
+  .form-signin h1 {
+    font-size: 20px;
+  }
+
+  .form-signin input,
+  .form-signin button {
+    font-size: 13px;
+  }
 }
