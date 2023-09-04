@@ -1,0 +1,74 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filter-section {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 1em;
+    justify-content: center;
+
+}
+
+.error-message {
+    margin: auto;
+    justify-content: center;
+        align-items: center;
+        display: flex;
+        margin-bottom: 1em;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin-top: 20px;
+    margin: auto;
+
+}
+
+td {
+    border: 1px solid #868686;
+    text-align: left;
+    padding: 8px;
+    margin: auto;
+    background-color: #dddddd;
+
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.ControlID-4 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding: 0.2em;
+    border-radius: 5px;
+    border: none;
+    background-color: #f5f5f5;
+    color: #000000;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.transacciones h2 {
+    color: white;
+    font-size: 3em;
+
+
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}

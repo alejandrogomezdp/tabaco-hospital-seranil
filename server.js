@@ -9,19 +9,17 @@ const port = 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Using environment variables for database credentials
 const db = mysql.createConnection({
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'eminem92AA!!', // Suggested moving to an environment variable
+    password: process.env.DB_PASSWORD || 'eminem92AA!!', // Recomendado mover a una variable de ambiente
     database: 'tabacoHospital'
 });
 
-// Handle connection errors
 db.connect(err => {
     if (err) {
         console.error('Error connecting to the database:', err);
-        process.exit(1); // Exit the process with an error code
+        process.exit(1);
     }
     console.log('Connected to the database');
 });
@@ -63,6 +61,16 @@ app.post('/submit', (req, res) => {
         res.json({ message: "Datos guardados exitosamente!" });
     });
 });
+
+app.get('/transacciones-api', (req, res) => {
+    db.query('SELECT * FROM transacciones', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(results);
+    });
+});
+
 
 app.listen(port, () => {
     console.log(`API server started on http://localhost:${port}`);
