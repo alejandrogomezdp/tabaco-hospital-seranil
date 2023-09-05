@@ -139,11 +139,35 @@ app.post('/login', (req, res) => {
         if (response && response.data && response.data.success) {
             navigate('/transaccion-nueva');
         }
-        
+
         else {
             console.warn(`Contraseña incorrecta para el usuario: ${username}`);
             res.status(400).send("Usuario o contraseña incorrectos");
         }
+    });
+});
+
+app.post('/addPaquete', (req, res) => {
+    const { nombre, cigarCount } = req.body;
+    db.query('INSERT INTO marcas (nombre, cigarCount) VALUES (?, ?)', [nombre, cigarCount], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Paquete añadido exitosamente' });
+    });
+});
+
+app.post('/addPaciente', (req, res) => {
+    const { nombreCompleto } = req.body;
+    const currentDate = new Date();
+    const fecha = currentDate.toISOString().split('T')[0];
+    const hora = currentDate.toISOString().split('T')[1].split('.')[0];
+
+    db.query('INSERT INTO pacientes (nombre_completo, fecha, hora) VALUES (?, ?, ?)', [nombreCompleto, fecha, hora], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Paciente registrado exitosamente' });
     });
 });
 
