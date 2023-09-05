@@ -1,25 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './IniciarSesion.css';
+import { useNavigate } from 'react-router-dom';  // Importa useNavigate
 
-function Login() {
+
+
+function Login(props) {
+    const navigate = useNavigate();  // Utiliza el hook useNavigate
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const cors = require('cors');
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3001/login', { username, password });
-
-            if (response.data.success) {
-                // Redirige al usuario a /transaccion-nueva usando React Router
-                window.location.href = "/transaccion-nueva"; // Cambia esta línea
+            if (response && response.data && response.data.success) {
+                navigate('/transaccion-nueva');
+            } else if (response && response.data) {
+                setError(response.data.message);
+            } else {
+                setError("Error desconocido al iniciar sesión");
             }
-
-            setError(null);
         } catch (err) {
-            setError(err.response.data);
+            if (err.response && err.response.data) {
+                setError(err.response.data.error);
+            } else {
+                setError("Error al conectarse al servidor");
+                console.error(err);
+            }
         }
     };
 
@@ -57,7 +68,7 @@ function Login() {
                     Iniciar sesión
                 </button>
             </form>
-            <a href="/register">Registrarse</a>
+            <a href="/registro">Registrarse</a>
         </div>
     );
 }

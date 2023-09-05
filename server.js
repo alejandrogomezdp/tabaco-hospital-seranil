@@ -114,11 +114,9 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-
-    // Añadimos logs para entender lo que recibimos
     console.log(`Intento de inicio de sesión para el usuario: ${username}`);
 
-    const query = "SELECT password_hash FROM users WHERE username = ?"; // Cambiado a password_hash
+    const query = "SELECT password_hash FROM users WHERE username = ?";
     db.query(query, [username], async (err, results) => {
         if (err) {
             console.error("Error al consultar la base de datos:", err);
@@ -130,19 +128,25 @@ app.post('/login', (req, res) => {
             return res.status(400).send("Usuario o contraseña incorrectos");
         }
 
-        const hashedPassword = results[0].password_hash; // Cambiado a password_hash
-
+        const hashedPassword = results[0].password_hash;
         const match = await bcrypt.compare(password, hashedPassword);
 
         if (match) {
             console.log(`Usuario ${username} ha iniciado sesión exitosamente.`);
-            res.redirect('/transaccion-nueva');
-        } else {
+            res.json({ success: true, message: "Inicio de sesión exitoso" });
+        } 
+        
+        if (response && response.data && response.data.success) {
+            navigate('/transaccion-nueva');
+        }
+        
+        else {
             console.warn(`Contraseña incorrecta para el usuario: ${username}`);
             res.status(400).send("Usuario o contraseña incorrectos");
         }
     });
 });
+
 
 app.listen(port, () => {
     console.log(`API server started on http://localhost:${port}`);
