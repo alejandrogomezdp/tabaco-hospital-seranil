@@ -1,0 +1,86 @@
+.appleStyleTabaco-container {
+    font-family: 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.appleStyleTabaco-title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.appleStyleTabaco-alert-success {
+    padding: 10px 15px;
+    background-color: #e5f4e8;
+    color: #278f4f;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.appleStyleTabaco-alert-error {
+    padding: 10px 15px;
+    background-color: #ffe5e5;
+    color: #b82727;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.appleStyleTabaco-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.appleStyleTabaco-formGroup {
+    margin-bottom: 20px;
+}
+
+.appleStyleTabaco-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #666;
+}
+
+.appleStyleTabaco-input {
+    width: 95%;
+    padding: 12px;
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+.appleStyleTabaco-input:focus {
+    border-color: #007AFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+}
+
+.appleStyleTabaco-button {
+    background: linear-gradient(135deg, #007AFF 0%, #72adf9 100%);
+    color: white;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.appleStyleTabaco-button:hover {
+    background: linear-gradient(135deg, #005AD2 0%, #72adf9 100%);
+}
