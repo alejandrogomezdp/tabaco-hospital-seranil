@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import './Transacciones.css';
+import './Transacciones.scss';
 
 function Transacciones() {
     const [transacciones, setTransacciones] = useState([]);
@@ -40,13 +40,14 @@ function Transacciones() {
     }, []);
 
     return (
-        <>
-            <section className="contenedor-transacciones">
-                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" width="300px" height="130px" />
+        <div className="transacciones-page container-fluid">
+            <section className="transacciones-header text-center my-4">
+                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" className="img-fluid inverted-logo" />
             </section>
-            <div className="transacciones">
-                <h1 style={{ textAlign: 'center' }} className='h1tablas'>Transacciones de tabaco</h1>
-                <div className="filters">
+            <div className="transacciones-content">
+                <h1 className="text-center mb-4">Transacciones de tabaco</h1>
+
+                <div className="filters d-flex justify-content-center mb-4">
                     <label>
                         Fecha:
                         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
@@ -59,38 +60,30 @@ function Transacciones() {
                         Hasta:
                         <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
                     </label>
-                    <button style={{ background: "white", color: "black", padding: ".5em" }} onClick={fetchData}>Buscar</button>
                 </div>
+                <button style={{ padding: ".5em", textAlign: 'center', marginLeft: '1em', marginBottom: '1em' }} onClick={fetchData}>Buscar</button>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id Transacción</th>
-                            <th>Marca Tabaco</th>
-                            <th>Nombre Completo</th>
-                            <th>Cantidad Cigarros</th>
-                            <th>Paquete Completo</th>
-                            <th className='tablafecha'>Fecha</th>
-                            <th>Hora</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {transacciones.map(transaccion => (
-                            <tr key={transaccion.id_transaccion}>
-                                <td>{transaccion.id_transaccion}</td>
-                                <td>{marcas.find(marca => marca.id === transaccion.id_marca)?.nombre || 'Desconocido'}</td>
-                                <td>{transaccion.nombre_completo}</td>
-                                <td>{transaccion.cantidad_cigarros}</td>
-                                <td>{transaccion.paquete_completo}</td>
-                                <td className='tablafecha'>{transaccion.fecha}</td>
-                                <td>{transaccion.hora}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {error && <p className="error">{error}</p>}
+                <div className="responsive-table">
+                    <table>
+                        <tbody>
+                            {transacciones.map(transaccion => (
+                                <tr key={transaccion.id_transaccion}>
+                                    <td data-label="Id Transacción:">{transaccion.id_transaccion}</td>
+                                    <td data-label="Marca Tabaco:">{marcas.find(marca => marca.id === transaccion.id_marca)?.nombre || 'Desconocido'}</td>
+                                    <td data-label="Nombre Completo:">{transaccion.nombre_completo}</td>
+                                    <td data-label="Cantidad Cigarros:">{transaccion.cantidad_cigarros}</td>
+                                    <td data-label="Paquete Completo:">{transaccion.paquete_completo ? 'Sí' : 'No'}</td>
+                                    <td data-label="Fecha:" className='tablafecha'>{transaccion.fecha}</td>
+                                    <td data-label="Hora:">{transaccion.hora}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                </div>
+                {error && <p className="error text-danger text-center">{error}</p>}
             </div>
-        </>
+        </div>
     );
 }
 

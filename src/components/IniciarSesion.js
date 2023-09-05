@@ -34,6 +34,7 @@ function Login(props) {
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className='form-signin text-center'>
+                <img className="imglogoregistro mb-4" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="230px" height="100px" />
                 <h1 className="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <form onSubmit={handleSubmit}>

@@ -1,0 +1,104 @@
+// Variante 5b
+.transacciones-page {
+  background-color: #f6f9fc;
+  height: 100%;
+  padding: 1em 0;
+
+  button {
+    margin: auto;
+    justify-content: center;
+    width: 90%;
+    background-color: #128C9F;
+    border-radius: 20px;
+    color: white;
+  }
+
+  
+
+  tbody tr {
+    display: block;
+    margin-bottom: 0.625rem;
+  }
+
+  .transacciones-header {
+    .inverted-logo {
+      filter: none; // Restaurar el logo a su color original
+      
+
+    }
+  }
+
+  .transacciones-content {
+    max-width: 768px;
+    margin: 0 auto;
+
+    .filters {
+      gap: 0.3em;
+      font-size: 0.8rem; // Reducir el tamaño de fuente
+      max-width: 768px;
+
+      input,
+      button {
+        padding: 0.3em 0.5em; // Ajustar el padding
+      }
+
+      button {
+        font-size: 0.8rem;
+                    align-items: center;
+
+      }
+    }
+
+    .responsive-table {
+      table {
+        width: 90%;
+        border-collapse: collapse;
+        margin-top: 1em;
+                    align-items: center;
+                    margin: auto;
+
+
+        th,
+        td {
+          padding: 0.75em 1em;
+          border: 1px solid #000000;
+          width: 100%;
+          display: flex;
+          font-size: 0.8rem;
+            align-items: center;
+        }
+
+        th {
+          background: linear-gradient(to right, #9bdaff, #55c1ff);
+          color: white;
+
+        }
+
+        td {
+          background-color: white;
+          color: #333;
+          align-items: center;
+          justify-content: center;
+          margin: auto;
+
+          &:before {
+            content: attr(data-label);
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            padding-right: 0.5em;
+            margin-left: -1em;
+            padding: 0.1em;
+            // border-radius: 20px;
+          }
+        }
+
+        @media (max-width: 428px) {
+          tbody tr {
+            display: block;
+            margin-bottom: 0.625rem;
+          }
+        }
+      }
+    }
+  }
+}
