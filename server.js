@@ -135,10 +135,6 @@ app.post('/login', (req, res) => {
             console.log(`Usuario ${username} ha iniciado sesión exitosamente.`);
             res.json({ success: true, message: "Inicio de sesión exitoso" });
         } 
-        
-        if (response && response.data && response.data.success) {
-            navigate('/transaccion-nueva');
-        }
 
         else {
             console.warn(`Contraseña incorrecta para el usuario: ${username}`);

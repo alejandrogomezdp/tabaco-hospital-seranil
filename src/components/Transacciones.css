@@ -81,7 +81,8 @@ button {
     justify-content: center;
     display: flex;
     border-radius: 5px;
-    background-color: #f5f5f5;
+    background-color: #e7e7e7;
+    filter: drop-shadow(8px 8px 8px rgb(231, 231, 231));
     color: #000000;
     cursor: pointer;
     height: 100px;
@@ -114,7 +115,7 @@ button {
     align-items: center;
     margin: auto;
     gap: 10px;
-    color: white;
+    color: rgba(100, 216, 255, 0.45);
     margin-top: 1em;
     margin: auto;
     align-items: center;

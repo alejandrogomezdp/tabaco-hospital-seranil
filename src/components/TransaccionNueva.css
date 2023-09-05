@@ -7,14 +7,14 @@ body {
   max-width: 50%;
   margin-top: 2em;
 }
-.container {
+.container-registro-tabaco {
   display: center;
   margin: auto;
   align-items: center;
   text-align: center;
   background-color: rgb(241, 241, 241);
   position: center;
-  width: 25%;
+  width: 35%;
   padding: 1em;
   margin-top: 1em;
   border-radius: 20%;
@@ -46,8 +46,9 @@ body {
   background-color: #00b52e;
   color: white;
   border-radius: 2em;
-  margin-top: 1em;
+  margin-top: 2em;
   font-size: 1em;
+
 }
 
 .form-control {
@@ -64,7 +65,7 @@ body {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-.css-b62m3t-container {
+.css-b62m3t-container-registro-tabaco {
   position: relative;
   box-sizing: border-box;
   max-width: 80%;
@@ -104,8 +105,8 @@ h1 {
 }
 
 @media (max-width: 576px) {
-  .container {
-    width: 85%;
+  .container-registro-tabaco {
+    width: 35%;
     margin: auto;
     margin-top: 2em;
     padding: 1em;
@@ -127,12 +128,12 @@ h1 {
 }
 
 @media (max-width: 767px) {
-  .container {
+  .container-registro-tabaco {
     width: 80%;
     padding: 1em;
     border-radius: 40px;
-    margin-bottom: 5em;
-    margin-top: 5em;
+    margin-bottom: 3em;
+    margin-top: 2em;
   }
 
   .div.form-group-2 {
@@ -145,11 +146,12 @@ h1 {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-  .container {
-    margin-top: 5em;
+  .container-registro-tabaco {
+    margin-top: 2em;
+    width: 80%;
     padding: 1em;
     border-radius: 5%;
-    margin-bottom: 8em;
+    margin-bottom: 3em;
   }
 
   .form-control {
@@ -168,9 +170,8 @@ h1 {
   }
 
   .form-group-2 {
-    width: 100px;
     height: 50px;
-    margin: auto;
+    margin-top: 1em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -184,16 +185,16 @@ h1 {
 }
 
 @media (min-width: 992px) {
-  .container {
-    width: 80%;
-    margin-bottom: 10em;
+  .container-registro-tabaco {
+    width: 5%;
+    margin-bottom: 1em;
     margin-top: 1em;
   }
 }
 
 @media (min-width: 1200px) {
-  .container {
-    width: 90%;
+  .container-registro-tabaco {
+    width: 35%;
     margin-bottom: 1em;
     margin-top: 1em;
   }

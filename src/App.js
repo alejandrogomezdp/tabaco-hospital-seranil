@@ -33,7 +33,7 @@ function App() {
           <Route path="/transacciones" element={<Transacciones />} />
           <Route path="/transaccion-nueva" element={<TransaccionNueva />} />
           <Route path="/transacciones-api" element={<TransaccionesAPI />} />
-          <Route path="/iniciar-sesion" element={<IniciarSesion />} />
+          <Route path="/" element={<IniciarSesion />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/nuevo-paciente" element={<NuevoPaciente />} />
           <Route path="/alta-tabaco" element={<AltaTabaco />} />

@@ -81,7 +81,7 @@ function TransaccionNueva() {
     const patientOptions = patients.map(patient => ({ label: patient, value: patient }));
 
     return (
-        <div className="container">
+        <div className="container-registro-tabaco">
             <div className="alert alert-primary" role="alert">
                 <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo" width="300px" height="130px"></img>
                 <h1>Inventario de tabaco</h1>
