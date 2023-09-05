@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './IniciarSesion.css';
-import { useNavigate } from 'react-router-dom';  // Importa useNavigate
-
-
+import './IniciarSesion.scss'; // Cambiar .css a .scss
+import { useNavigate } from 'react-router-dom';
 
 function Login(props) {
-    const navigate = useNavigate();  // Utiliza el hook useNavigate
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
-    const cors = require('cors');
 
 
     const handleSubmit = async (e) => {
@@ -35,40 +32,46 @@ function Login(props) {
     };
 
     return (
-        <div className='form-signin text-center'>
-            <h1 className="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
-            <div className="alert-container">
-                {error && <div className="alert alert-danger text-center">{error}</div>}
+        <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className='form-signin text-center'>
+                <h1 className="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
+                {error && <div className="alert alert-danger">{error}</div>}
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="username">Usuario o Correo Electrónico</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            className="form-control"
+                            placeholder="Usuario o Correo Electrónico"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            autoFocus
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Contraseña</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            className="form-control"
+                            placeholder="Contraseña"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button className="btn btn btn-primary btn-block" type="submit">
+                        Iniciar sesión
+                    </button>
+                    <div className="mt-3">
+                        <a href="/registro">Registrarse</a>
+                    </div>
+                </form>
             </div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username" className="sr-only">Usuario</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    className="form-control"
-                    placeholder="Usuario"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    autoFocus
-                />
-                <label htmlFor="password" className="sr-only">Contraseña</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    className="form-control"
-                    placeholder="Contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">
-                    Iniciar sesión
-                </button>
-            </form>
-            <a href="/registro">Registrarse</a>
         </div>
     );
 }

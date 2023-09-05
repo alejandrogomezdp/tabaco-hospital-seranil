@@ -1,0 +1,45 @@
+.transaccion-container {
+    background-color: rgba(0, 0, 0, 0.05);
+
+
+    .transaccion-card {
+        width: 90%;
+        max-width: 600px;
+        background-color: #fff;
+            border-radius: 50px;
+
+
+        img {
+            display: block;
+            margin: auto;
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        .form-control, select {
+            margin-top: 0.5rem;
+        }
+
+        .resultadofinal {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 1rem;
+
+            h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: #fff;
+
+            &:hover {
+                background-color: #218838;
+                border-color: #1e7e34;
+            }
+        }
+    }
+}

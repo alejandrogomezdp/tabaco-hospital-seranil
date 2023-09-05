@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3001:3001"
+  client:
+    build: ./home/alejandro/hospital-seranil
+    ports:
+      - "3000:3000"
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: eminem92AA!!
+      MYSQL_DATABASE: tabacoHospital
+      MYSQL_USER: root
+      MYSQL_PASSWORD: eminem92AA!!
+  
+    ports:
+      - "3306:3306"

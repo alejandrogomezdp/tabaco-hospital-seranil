@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Select from 'react-select';
-import './TransaccionNueva.css';
+import './TransaccionNueva.scss';
 
 function TransaccionNueva() {
     const [brands, setBrands] = useState([]);
@@ -81,55 +81,59 @@ function TransaccionNueva() {
     const patientOptions = patients.map(patient => ({ label: patient, value: patient }));
 
     return (
-        <div className="container-registro-tabaco">
-            <div className="alert alert-primary" role="alert">
-                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo" width="300px" height="130px"></img>
-                <h1>Inventario de tabaco</h1>
-            </div>
-            <Select
-                options={patientOptions}
-                value={{ label: patientName, value: patientName }}
-                onChange={handlePatientChange}
-                placeholder="Paciente..."
-            />
-
-            <div className="form-group-2">
-                <h3>Cantidad de cigarros:</h3>
-                <input
-                    type="number"
-                    className="form"
-                    placeholder="Introduzca la cantidad"
-                    value={qty}
-                    onChange={(event) => setQty(event.target.value)}
+        <div className="transaccion-container d-flex flex-column justify-content-center align-items-center vh-100">
+            <div className="transaccion-card p-4 rounded shadow">
+                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo" className="mb-4" width="230px" height="100px" />
+                <h1 className="mb-4">Inventario de tabaco</h1>
+                <Select
+                    options={patientOptions}
+                    value={{ label: patientName, value: patientName }}
+                    onChange={handlePatientChange}
+                    placeholder="Paciente..."
+                    className="mb-4"
                 />
-            </div>
-            <div className="form-group-3">
-                <h3>Marcar si es un paquete completo:</h3>
-                <input className="checkbox"
-                    type="checkbox"
-                    checked={isWholePack}
-                    onChange={(event) => setIsWholePack(event.target.checked)}
-                />
-            </div>
-            <div className="form-group">
-                <h3>Marca de cigarro:</h3>
-                <select
-                    value={selectedBrand}
-                    onChange={(event) => setSelectedBrand(event.target.value)}
-                >
-                    <option value="">Seleccione una marca...</option>
-                    {brands.map((brand) => (
-                        <option key={brand.id} value={brand.nombre}>
-                            {brand.nombre}
-                        </option>
-                    ))}
-                </select>
-            </div>
 
-            <div className="resultadofinal">
-                <h2>Resumen:</h2>
-                <p>{tobaccoPacketDetail()}</p>
-                <button className="boton-verde" onClick={handleSubmit}>Enviar datos</button>
+                <div className="mb-4">
+                    <h3>Cantidad de cigarros:</h3>
+                    <input
+                        type="number"
+                        className="form-control"
+                        placeholder="Introduzca la cantidad"
+                        value={qty}
+                        onChange={(event) => setQty(event.target.value)}
+                    />
+                </div>
+
+                <div className="mb-4 d-flex align-items-center">
+                    <h3 className="mr-3">¿Paquete completo?</h3>
+                    <input
+                        type="checkbox"
+                        checked={isWholePack}
+                        onChange={(event) => setIsWholePack(event.target.checked)}
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <h3>Marca de cigarro:</h3>
+                    <select
+                        value={selectedBrand}
+                        onChange={(event) => setSelectedBrand(event.target.value)}
+                        className="form-control"
+                    >
+                        <option value="">Seleccione una marca...</option>
+                        {brands.map((brand) => (
+                            <option key={brand.id} value={brand.nombre}>
+                                {brand.nombre}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="resultadofinal mb-4">
+                    <h2>Resumen:</h2>
+                    <p>{tobaccoPacketDetail()}</p>
+                </div>
+                <button className="btn btn-success btn-block" onClick={handleSubmit}>Enviar datos</button>
             </div>
         </div>
     );
