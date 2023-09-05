@@ -46,8 +46,8 @@ function Registro() {
 
     return (
         <div className='form-register text-center'>
-            <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="300px" height="130px" />
-            <h2>Registro</h2>
+            <img className="imglogoregistro" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="300px" height="130px" />
+            <h2>Registro Médico</h2>
             {error && <div className="alert-2 alert-danger">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <input

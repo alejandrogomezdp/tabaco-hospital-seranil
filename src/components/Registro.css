@@ -13,13 +13,14 @@ body {
     max-height: 600px;
     width: 90%;
     margin-top: 1em;
+    margin: auto;
     background-color: #fff;
     padding: 30px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
-img {
+.imglogoregistro {
     margin: auto;
     display: flex;
     justify-content: center;

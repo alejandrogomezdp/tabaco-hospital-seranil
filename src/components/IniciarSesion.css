@@ -1,5 +1,4 @@
 body {
-  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -10,8 +9,9 @@ body {
 .form-signin {
   width: 100%;
   max-width: 340px;
-  padding: 15px;
+  padding: 1em 1em;
   margin: auto;
+  margin-top: 10em;
   background-color: #fff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
