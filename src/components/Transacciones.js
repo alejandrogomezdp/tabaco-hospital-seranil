@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import './Transacciones.css';
 
 function Transacciones() {
     const [transacciones, setTransacciones] = useState([]);
+    const [marcas, setMarcas] = useState([]);
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [startTime, setStartTime] = useState('00:00');
     const [endTime, setEndTime] = useState('23:59');
@@ -12,30 +13,31 @@ function Transacciones() {
     const fetchData = useCallback(async () => {
         try {
             const response = await axios.get('http://localhost:3001/transacciones-api');
-            console.log("Respuesta de la API:", response.data);
-
             const filteredTransacciones = response.data.filter(transaccion => {
-                const transaccionDateTime = transaccion.fecha.split('T')[0] + 'T' + transaccion.hora; // Corrección aquí
-                console.log("Concatenación fecha y hora:", transaccionDateTime);
+                const transaccionDateTime = transaccion.fecha.split('T')[0] + 'T' + transaccion.hora;
                 const transaccionDate = new Date(transaccionDateTime);
                 const startDate = new Date(date + 'T' + startTime);
                 const endDate = new Date(date + 'T' + endTime);
-
-                console.log("Fecha transacción:", transaccionDate);
-                console.log("Fecha inicio:", startDate);
-                console.log("Fecha fin:", endDate);
-
                 return transaccionDate >= startDate && transaccionDate <= endDate;
             });
-
-            console.log("Transacciones filtradas:", filteredTransacciones);
             setTransacciones(filteredTransacciones);
             setError(null);
         } catch (err) {
-            console.error("Error fetching data:", err);
             setError("Hubo un problema al obtener las transacciones. Por favor intenta más tarde.");
         }
     }, [date, startTime, endTime]);
+
+    useEffect(() => {
+        const fetchMarcas = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/marcas');
+                setMarcas(response.data);
+            } catch (err) {
+                console.error("Error fetching marcas:", err);
+            }
+        };
+        fetchMarcas();
+    }, []);
 
     return (
         <>
@@ -64,11 +66,11 @@ function Transacciones() {
                     <thead>
                         <tr>
                             <th>Id Transacción</th>
-                            <th>Id Marca</th>
+                            <th>Marca Tabaco</th>
                             <th>Nombre Completo</th>
                             <th>Cantidad Cigarros</th>
                             <th>Paquete Completo</th>
-                            <th className='tablafecha' >Fecha</th>
+                            <th className='tablafecha'>Fecha</th>
                             <th>Hora</th>
                         </tr>
                     </thead>
@@ -76,7 +78,7 @@ function Transacciones() {
                         {transacciones.map(transaccion => (
                             <tr key={transaccion.id_transaccion}>
                                 <td>{transaccion.id_transaccion}</td>
-                                <td>{transaccion.id_marca}</td>
+                                <td>{marcas.find(marca => marca.id === transaccion.id_marca)?.nombre || 'Desconocido'}</td>
                                 <td>{transaccion.nombre_completo}</td>
                                 <td>{transaccion.cantidad_cigarros}</td>
                                 <td>{transaccion.paquete_completo}</td>
