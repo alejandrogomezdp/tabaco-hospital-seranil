@@ -43,7 +43,7 @@ function Transacciones() {
                 <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" width="300px" height="130px" />
             </section>
             <div className="transacciones">
-                <h1 style={{ textAlign: 'center' }}>Transacciones de tabaco</h1>
+                <h1 style={{ textAlign: 'center' }} className='h1tablas'>Transacciones de tabaco</h1>
                 <div className="filters">
                     <label>
                         Fecha:
@@ -68,7 +68,7 @@ function Transacciones() {
                             <th>Nombre Completo</th>
                             <th>Cantidad Cigarros</th>
                             <th>Paquete Completo</th>
-                            <th>Fecha</th>
+                            <th className='tablafecha' >Fecha</th>
                             <th>Hora</th>
                         </tr>
                     </thead>
@@ -80,7 +80,7 @@ function Transacciones() {
                                 <td>{transaccion.nombre_completo}</td>
                                 <td>{transaccion.cantidad_cigarros}</td>
                                 <td>{transaccion.paquete_completo}</td>
-                                <td>{transaccion.fecha}</td>
+                                <td className='tablafecha'>{transaccion.fecha}</td>
                                 <td>{transaccion.hora}</td>
                             </tr>
                         ))}
