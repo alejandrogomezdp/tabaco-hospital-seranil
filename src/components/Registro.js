@@ -56,9 +56,10 @@ function Registro() {
     };
 
     return (
-        <div className='rootformregister'>
+        <html className='html-registro' style={{ backgroundColor: 'blue' }}>
+        <body className="body-registro">
             <div className='form-register text-center'>
-                <img className="imglogoregistro mb-4" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="300px" height="130px" />
+                <img className="imglogoregistro" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="300px" height="130px" />
                 <h2 className="mb-4">Registro Médico</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
                 {passwordMatch && <Alert variant="warning">{passwordMatch}</Alert>}
@@ -98,7 +99,8 @@ function Registro() {
                     <Button variant="primary" type="submit" className="btn-lg btn-block mt-4">Registrarse</Button>
                 </Form>
             </div>
-        </div>
+        </body>
+        </html>
     );
 }
 

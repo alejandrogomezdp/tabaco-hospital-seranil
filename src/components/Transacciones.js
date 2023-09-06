@@ -41,6 +41,8 @@ function Transacciones() {
     }, []);
 
     return (
+        <html className='html-transacciones'>
+        <body className="transacciones-body">
         <div className="transacciones-page container-fluid">
             <section className="transacciones-header text-center my-4">
                 <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" className="img-fluid inverted-logo" />
@@ -89,6 +91,8 @@ function Transacciones() {
                 {error && <p className="error text-danger text-center">{error}</p>}
             </div>
         </div>
+        </body>
+        </html>
     );
 }
 

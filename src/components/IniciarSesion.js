@@ -32,6 +32,7 @@ function Login(props) {
     };
 
     return (
+        <body className="bodylogin">
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className='form-signin text-center'>
                 <img className="imglogoregistro mb-4" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="230px" height="100px" />
@@ -74,6 +75,7 @@ function Login(props) {
                 </form>
             </div>
         </div>
+        </body>
     );
 }
 

@@ -1,49 +1,97 @@
-.marcas-manage {
-  background-color: #f6f9fc;
-  padding: 2em;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  
-  h2 {
+ .gestion-marcas {
     text-align: center;
-    margin-bottom: 1em;
+    margin-bottom: 20px;
+    color: whitesmoke;
+    padding-top: 1em;
   }
 
-  table {
+.imglogoregistro {
+    background-color: white;
+    border-radius: 50px;
+    display: block;
+    margin: auto;
+    padding: .1em;
+    max-height: fit-content;
+    margin-top: 2em;
+}
+
+.menu-principal {
+  ul.nav {
+    margin-bottom: 20px;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 1em;
+    background-color: #f6f6f6;
+    border-radius: 4px;
+
+    li.nav-item {
+      a.nav-link {
+        color: #333; // Cambia a tu color preferido para los enlaces.
+        transition: color 0.3s;
+        border-radius: 4px;
+
+        &:hover {
+          color: #007bff; // Cambia a tu color preferido para el estado hover.
+          background-color: #f6f6f6; // Cambia a tu color preferido para el fondo en hover.
+        }
+
+        &.active {
+          color: #fff; // Cambia al color que prefieras para el enlace activo.
+          background-color: #007bff; // Cambia al color de fondo que prefieras para el enlace activo.
+        }
+      }
+
+      a.nav-link.disabled {
+        color: #ccc; // Cambia a tu color preferido para los enlaces desactivados.
+        pointer-events: none;
+        background-color: transparent;
+
+        &:hover {
+          color: #ccc;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.marcas-manage {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+
+
+
+  .table {
     width: 100%;
     border-collapse: collapse;
 
-    th, td {
-      padding: 0.5em;
-      border: 1px solid #e1e1e1;
-      text-align: left;
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #ccc;
     }
 
     th {
-      background-color: #007AFF;
-      color: white;
+      background-color: #f2f2f2;
     }
 
     td {
-      background-color: white;
-      color: #333;
+      text-align: center;
     }
 
     button {
-      margin-right: 0.5em;
-      padding: 0.5em 1em;
+      padding: 5px 10px;
+      margin: 5px 5px;
+      cursor: pointer;
       border: none;
-      background-color: #007AFF;
+      background-color: #4caf50;
       color: white;
       border-radius: 4px;
-      cursor: pointer;
-
-      &:last-child {
-        margin-right: 0;
-      }
+      transition: background-color 0.3s;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #45a049;
       }
     }
   }

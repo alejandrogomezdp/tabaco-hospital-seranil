@@ -179,6 +179,18 @@ app.put('/pacientes/:id', (req, res) => {
     });
 });
 
+// Actualizar una marca específica por ID
+app.put('/marcas/:id', (req, res) => {
+    const { nombre, cigarCount } = req.body;
+    const { id } = req.params;
+
+    db.query('UPDATE marcas SET nombre = ?, cigarCount = ? WHERE id = ?', [nombre, cigarCount, id], (err, results) => { // Cambiado a WHERE id
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Marca actualizada exitosamente' });
+    });
+});
 
 app.listen(port, () => {
     console.log(`API server started on http://localhost:${port}`);
