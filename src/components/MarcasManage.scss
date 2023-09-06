@@ -1,14 +1,39 @@
  .gestion-marcas {
-    text-align: center;
-    margin-bottom: 20px;
-    color: whitesmoke;
-    padding-top: 1em;
+   background-color: #f6f9fc;
+  padding: .2em;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: auto;
+    margin-top: 1em;
   }
 
+#guardar-tabaco-actualizado {
+        background-color: #007AFF;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 0.5em 0.5em;
+        border: none;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        max-width: 30%;
+    
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
+
+    h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    }
+    
 .imglogoregistro {
     background-color: white;
     border-radius: 50px;
-    display: block;
+    display: -webkit-box;
     margin: auto;
     padding: .1em;
     max-height: fit-content;
@@ -23,6 +48,18 @@
     margin-top: 1em;
     background-color: #f6f6f6;
     border-radius: 4px;
+    display: block;
+
+    .menu-principal ul.nav {
+    margin-bottom: 20px;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 1em;
+    background-color: #f6f6f6;
+    border-radius: 4px;
+    display: block;
+}
 
     li.nav-item {
       a.nav-link {
@@ -55,21 +92,40 @@
   }
 }
 
+.Editor {
+    margin: auto;
+    text-align: center;
+    color: white;
+}
+label {
+    color: rgb(255, 255, 255);
+    font-size: 1.2em;
+    margin: auto;
+    text-align: center;
+}
+
 .marcas-manage {
   padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%;
+margin: auto;
+  display: block;
+
 
 
 
   .table {
     width: 100%;
-    border-collapse: collapse;
+
 
     th,
     td {
       padding: 10px;
       border: 1px solid #ccc;
+      margin: auto;
+    }
+
+    tr {
+       margin-bottom: 0.625rem;
     }
 
     th {
@@ -80,8 +136,13 @@
       text-align: center;
     }
 
+     tr {
+    display: revert;
+    margin-bottom: 0.625rem;
+}
+
     button {
-      padding: 5px 10px;
+      padding: 5px 35px;
       margin: 5px 5px;
       cursor: pointer;
       border: none;
@@ -89,6 +150,8 @@
       color: white;
       border-radius: 4px;
       transition: background-color 0.3s;
+      margin: auto;
+      margin-top: .5em;
 
       &:hover {
         background-color: #45a049;

@@ -41,14 +41,13 @@ function Transacciones() {
     }, []);
 
     return (
-        <html className='html-transacciones'>
-        <body className="transacciones-body">
+  
         <div className="transacciones-page container-fluid">
             <section className="transacciones-header text-center my-4">
-                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" className="img-fluid inverted-logo" />
+                <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logos2" className="img-fluid inverted-logo" style={{ backgroundColor: "white", borderRadius: '20px' }} />
             </section>
             <div className="transacciones-content">
-                <h1 className="text-center mb-4">Transacciones de tabaco</h1>
+                <h1 className="text-center mb-4" style={{color: 'white'}}>Transacciones de tabaco</h1>
 
                 <div className="filters d-flex justify-content-center mb-4">
                     <label>
@@ -68,7 +67,7 @@ function Transacciones() {
                         <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
                     </label>
                 </div>
-                <button style={{ padding: ".5em", textAlign: 'center', marginLeft: '1em', marginBottom: '1em' }} onClick={fetchData}>Buscar</button>
+                <button style={{ padding: ".5em", textAlign: 'center',  marginBottom: '1em' }} onClick={fetchData}>Buscar</button>
 
                 <div className="responsive-table">
                     <table>
@@ -91,8 +90,7 @@ function Transacciones() {
                 {error && <p className="error text-danger text-center">{error}</p>}
             </div>
         </div>
-        </body>
-        </html>
+ 
     );
 }
 

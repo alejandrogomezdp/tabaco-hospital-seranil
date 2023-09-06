@@ -1,21 +1,23 @@
 // Variante 5b
-.html-transacciones {
-background-color: #f6f9fc;
+html {
+    background: linear-gradient(45deg, #72adf9, #0a889c);
 
 }
 
-.transacciones-body {
+body {
   height: 100%;
   padding: 1em 0;
-    background-color: #f6f9fc;
+    background: linear-gradient(45deg, #72adf9, #0a889c);
 
   button {
     margin: auto;
     justify-content: center;
-    width: 90%;
-    background-color: #128C9F;
+    align-items: center;
+    width: 50%;
+    background-color: #ffffff;
     border-radius: 20px;
-    color: white;
+    color: black;
+    display: flex;
   }
 
   
@@ -27,7 +29,7 @@ background-color: #f6f9fc;
 
   .transacciones-header {
     .inverted-logo {
-      filter: none; // Restaurar el logo a su color original
+        color: white;
       
 
     }

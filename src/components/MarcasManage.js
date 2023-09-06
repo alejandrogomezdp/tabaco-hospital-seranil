@@ -14,6 +14,13 @@ function MarcasManage() {
         fetchMarcas();
     }, []);
 
+    useEffect(() => {
+        const btn = document.getElementById('guardar-tabaco-actualizado');
+        if (btn && btn.hasAttribute('control-id')) {
+            btn.removeAttribute('control-id');
+        }
+    }, [marcas, setMarcas]);
+
     const fetchMarcas = async () => {
         const response = await axios.get('http://localhost:3001/marcas');
         setMarcas(response.data);
@@ -36,15 +43,31 @@ function MarcasManage() {
     };
 
     const handleDelete = async (id) => {
+        console.log("ID a eliminar:", id); // Añade esta línea
         await axios.delete(`http://localhost:3001/marcas/${id}`);
         fetchMarcas();
     };
 
     return (
         <div className='menu-principal'>
-            <img className="imglogoregistro" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="300px" height="130px" />
+            <img className="imglogoregistro" src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo-registro" width="200px" height="90px" />
 
-            <h2 className='gestion-marcas'>Gestión de Marcas de Tabaco</h2>
+            <h2 className='gestion-marcas'>Gestión de Tabaco</h2>
+
+            {selectedMarca && (
+                <div className='Editor'>
+                    <h3>Editando: {selectedMarca.nombre}</h3>
+                    <label>
+                        Nombre:
+                        <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
+                    </label>
+                    <label>
+                        Cantidad de Cigarros:
+                        <input value={cigarCount} onChange={(e) => setCigarCount(e.target.value)} />
+                    </label>
+                    <button id='guardar-tabaco-actualizado' onClick={handleSave}>Guardar</button>
+                </div>
+            )}
 
             <ul className="nav nav-pills nav-fill">
                 <li className="nav-item">
@@ -83,20 +106,7 @@ function MarcasManage() {
                         ))}
                     </tbody>
                 </table>
-                {selectedMarca && (
-                    <div>
-                        <h3>Editando: {selectedMarca.nombre}</h3>
-                        <label>
-                            Nombre:
-                            <input value={nombre} onChange={(e) => setNombre(e.target.value)} />
-                        </label>
-                        <label>
-                            Cantidad de Cigarros:
-                            <input value={cigarCount} onChange={(e) => setCigarCount(e.target.value)} />
-                        </label>
-                        <button onClick={handleSave}>Guardar</button>
-                    </div>
-                )}
+               
             </div>
         </div>
     );

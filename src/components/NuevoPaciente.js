@@ -32,7 +32,7 @@ function NuevoPaciente() {
 
     return (
         <div className="appleStyle-container">
-            <div className="alert alert-primary" role="alert">
+            <div className="logo23" role="alert">
                 <img src="https://www.seranil.com/images/web/logo-seranil.png" alt="logo" width="300px" height="130px"></img>
             </div>
             <h1 className="appleStyle-title">Registrar nuevo paciente</h1>

@@ -49,7 +49,7 @@ function TransaccionNueva() {
 
         axios.post('http://localhost:3001/submit', transaction)
             .then(response => {
-                alert(`Datos enviados con éxito: ${patientName} ha fumado ${totalCigarros} cigarrillos.`);
+                alert(`Datos enviados con éxito: ${patientName} ha tomado ${totalCigarros} cigarrillos.`);
             })
             .catch(error => {
                 console.error("Error detallado:", error.response.data);

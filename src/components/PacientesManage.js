@@ -11,18 +11,24 @@ function PacientesManage() {
         fetchPacientes();
     }, []);
 
+    useEffect(() => {
+        const btn = document.getElementById('guardar-paciente-actualizado');
+        if (btn && btn.hasAttribute('control-id')) {
+            btn.removeAttribute('control-id');
+        }
+    }, [selectedPaciente, pacientes]);  // Se ejecutará cada vez que selectedPaciente o pacientes cambie
+
     const fetchPacientes = async () => {
         const response = await axios.get('http://localhost:3001/pacientes');
-        console.log("Datos recibidos de la API:", response.data); // Añadido para depuración
+        console.log("Datos recibidos de la API:", response.data);
         setPacientes(response.data);
     };
 
     const handleEdit = (paciente) => {
-        console.log("Editando paciente con ID:", paciente.id_paciente);  // Añadido para depuración
+        console.log("Editando paciente con ID:", paciente.id_paciente);
         setSelectedPaciente(paciente);
         setNombreCompleto(paciente.nombre_completo);
     };
-
 
     const handleSave = async () => {
         console.log("Guardando cambios para paciente con ID:", selectedPaciente.id_paciente);
@@ -40,6 +46,16 @@ function PacientesManage() {
     return (
         <div className="pacientes-manage">
             <h2>Gestión de Pacientes</h2>
+            {selectedPaciente && (
+                <div>
+                    <h3>Editando: {selectedPaciente.nombre_completo}</h3>
+                    <label>
+                        Nombre completo:
+                        <input value={nombreCompleto} onChange={(e) => setNombreCompleto(e.target.value)} />
+                    </label>
+                    <button id='guardar-paciente-actualizado' onClick={handleSave}>Guardar</button>
+                </div>
+            )}
             <table className="table">
                 <thead>
                     <tr>
@@ -59,16 +75,6 @@ function PacientesManage() {
                     ))}
                 </tbody>
             </table>
-            {selectedPaciente && (
-                <div>
-                    <h3>Editando: {selectedPaciente.nombre_completo}</h3>
-                    <label>
-                        Nombre completo:
-                        <input value={nombreCompleto} onChange={(e) => setNombreCompleto(e.target.value)} />
-                    </label>
-                    <button onClick={handleSave}>Guardar</button>
-                </div>
-            )}
         </div>
     );
 }

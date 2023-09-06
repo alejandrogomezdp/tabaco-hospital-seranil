@@ -27,7 +27,7 @@ db.connect(err => {
 });
 
 app.get('/marcas', (req, res) => {
-    db.query('SELECT * FROM marcas', (err, results) => {
+    db.query('SELECT * FROM marcas WHERE activo = TRUE', (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -167,6 +167,17 @@ app.post('/addPaciente', (req, res) => {
     });
 });
 
+app.delete('/pacientes/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.query('DELETE FROM pacientes WHERE id_paciente = ?', [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Paciente eliminado exitosamente' });
+    });
+});
+
 app.put('/pacientes/:id', (req, res) => {
     const { nombre_completo } = req.body;
     const { id } = req.params;
@@ -191,6 +202,19 @@ app.put('/marcas/:id', (req, res) => {
         res.json({ message: 'Marca actualizada exitosamente' });
     });
 });
+
+app.delete('/marcas/:id', (req, res) => {
+    const { id } = req.params;
+
+    db.query('UPDATE marcas SET activo = FALSE WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            console.error("Error al desactivar la marca:", err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Marca de tabaco desactivada exitosamente' });
+    });
+});
+
 
 app.listen(port, () => {
     console.log(`API server started on http://localhost:${port}`);
