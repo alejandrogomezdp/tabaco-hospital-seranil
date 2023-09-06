@@ -36,7 +36,7 @@ app.get('/marcas', (req, res) => {
 });
 
 app.get('/pacientes', (req, res) => {
-    db.query('SELECT nombre_completo FROM pacientes', (err, results) => {
+    db.query('SELECT * FROM pacientes', (err, results) => {  // Cambio aquí: ahora se selecciona todo, no sólo el nombre
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -164,6 +164,18 @@ app.post('/addPaciente', (req, res) => {
             return res.status(500).json({ error: err.message });
         }
         res.json({ message: 'Paciente registrado exitosamente' });
+    });
+});
+
+app.put('/pacientes/:id', (req, res) => {
+    const { nombre_completo } = req.body;
+    const { id } = req.params;
+
+    db.query('UPDATE pacientes SET nombre_completo = ? WHERE id_paciente = ?', [nombre_completo, id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ message: 'Paciente actualizado exitosamente' });
     });
 });
 

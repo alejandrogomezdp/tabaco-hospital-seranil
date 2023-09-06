@@ -5,7 +5,8 @@ import './Transacciones.scss';
 function Transacciones() {
     const [transacciones, setTransacciones] = useState([]);
     const [marcas, setMarcas] = useState([]);
-    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);  // <-- Define startDate
+    const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);      // <-- Define endDate
     const [startTime, setStartTime] = useState('00:00');
     const [endTime, setEndTime] = useState('23:59');
     const [error, setError] = useState(null);
@@ -16,16 +17,16 @@ function Transacciones() {
             const filteredTransacciones = response.data.filter(transaccion => {
                 const transaccionDateTime = transaccion.fecha.split('T')[0] + 'T' + transaccion.hora;
                 const transaccionDate = new Date(transaccionDateTime);
-                const startDate = new Date(date + 'T' + startTime);
-                const endDate = new Date(date + 'T' + endTime);
-                return transaccionDate >= startDate && transaccionDate <= endDate;
+                const startDateTime = new Date(startDate + 'T' + startTime);
+                const endDateTime = new Date(endDate + 'T' + endTime);
+                return transaccionDate >= startDateTime && transaccionDate <= endDateTime;  // <-- Use startDateTime and endDateTime
             });
             setTransacciones(filteredTransacciones);
             setError(null);
         } catch (err) {
             setError("Hubo un problema al obtener las transacciones. Por favor intenta más tarde.");
         }
-    }, [date, startTime, endTime]);
+    }, [startDate, endDate, startTime, endTime]);
 
     useEffect(() => {
         const fetchMarcas = async () => {
@@ -49,8 +50,12 @@ function Transacciones() {
 
                 <div className="filters d-flex justify-content-center mb-4">
                     <label>
-                        Fecha:
-                        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                        Desde:
+                        <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+                    </label>
+                    <label>
+                        Hasta:
+                        <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
                     </label>
                     <label>
                         Desde:

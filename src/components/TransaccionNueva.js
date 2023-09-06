@@ -104,7 +104,7 @@ function TransaccionNueva() {
                     />
                 </div>
 
-                <div className="mb-4 d-flex align-items-center">
+                <div className="mb-3 d-flex align-items-center">
                     <h3 className="mr-3">¿Paquete completo?</h3>
                     <input
                         type="checkbox"
@@ -130,7 +130,7 @@ function TransaccionNueva() {
                 </div>
 
                 <div className="resultadofinal mb-4">
-                    <h2>Resumen:</h2>
+                    <h3>Resumen:</h3>
                     
                     <p>{tobaccoPacketDetail()}</p>
                     <button className="btn btn-success btn-block" onClick={handleSubmit}>Enviar datos</button>

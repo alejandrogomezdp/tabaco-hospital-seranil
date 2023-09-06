@@ -1,0 +1,50 @@
+.marcas-manage {
+  background-color: #f6f9fc;
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 0.5em;
+      border: 1px solid #e1e1e1;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007AFF;
+      color: white;
+    }
+
+    td {
+      background-color: white;
+      color: #333;
+    }
+
+    button {
+      margin-right: 0.5em;
+      padding: 0.5em 1em;
+      border: none;
+      background-color: #007AFF;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}
